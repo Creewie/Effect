@@ -1,32 +1,48 @@
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, ScrollView } from 'react-native';
 import { useState } from 'react';
+import Card from './plakietki';
 
 export default function App() {
 
-  const [refresh, setRefresh] = useState()
+  const [refresh, setRefresh] = useState(new Date())
 
   function showTime(){
     const now = new Date();
-    const currentTime = now.toLocaleTimeString();
-    setRefresh(currentTime)
+    var currentTime = now.toLocaleTimeString();
+    setRefresh(new Date())
   }
   setInterval(showTime, 1000);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.font}>Aktualny czas: {refresh}</Text>
+    <ScrollView>
+
+      <View>
+        <Text style={styles.font}>Aktualny czas: {refresh.toLocaleTimeString()}</Text>
+      </View>
+      
+    <Card refresh={refresh} timeZone='America/New_York'/>
+    <Card refresh={refresh} timeZone='Asia/Tokyo' />
+    <Card refresh={refresh} timeZone='Europe/London' />
+    <Card refresh={refresh} timeZone='Africa/Nairobi' />
+    <Card refresh={refresh} timeZone='Antarctica/Troll' />
+
+    </ScrollView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    paddingTop: 15,
     flex: 1,
-    backgroundColor: '#fff',
+    color: 'white',
+    backgroundColor: '#202020',
     alignItems: 'center',
     justifyContent: 'center'
   },
   font: {
+    color:'white',
     fontSize: 35,
   }
 });
