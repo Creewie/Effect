@@ -1,9 +1,11 @@
 import { StyleSheet, Text, View, Button, ScrollView } from 'react-native';
 import { useState } from 'react';
 import Card from './plakietki';
+import { WorldTimeZones } from './strefyCzasowe';
 
 export default function App() {
 
+  
   const [refresh, setRefresh] = useState(new Date())
 
   function showTime(){
@@ -15,17 +17,19 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-    <ScrollView>
+    <ScrollView contentContainerStyle={{alignItems:'center', margin:'auto'}}>
 
       <View>
-        <Text style={styles.font}>Aktualny czas: {refresh.toLocaleTimeString()}</Text>
+        <Text style={styles.font}>Polska: {refresh.toLocaleTimeString()}</Text>
       </View>
-      
-    <Card refresh={refresh} timeZone='America/New_York'/>
-    <Card refresh={refresh} timeZone='Asia/Tokyo' />
-    <Card refresh={refresh} timeZone='Europe/London' />
-    <Card refresh={refresh} timeZone='Africa/Nairobi' />
-    <Card refresh={refresh} timeZone='Antarctica/Troll' />
+    
+    <View style={{flex:1, flexDirection:'row', flexWrap:'wrap'}}>
+    <Card city='Londyn' refresh={refresh} timeZone='Europe/London' />
+    <Card city='Nowy Jork' refresh={refresh} timeZone='America/New_York'/>
+    <Card city='Tokio' refresh={refresh} timeZone='Asia/Tokyo' />
+    <Card city='Nairobi' refresh={refresh} timeZone='Africa/Nairobi' />
+    <Card city='Troll' refresh={refresh} timeZone='Antarctica/Troll' />
+    </View>
 
     </ScrollView>
     </View>
@@ -39,10 +43,10 @@ const styles = StyleSheet.create({
     color: 'white',
     backgroundColor: '#202020',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   font: {
-    color:'white',
+    color:'#b7e4c7',
     fontSize: 35,
   }
 });
