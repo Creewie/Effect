@@ -55,7 +55,7 @@ export default function App() {
       }
     
     </View>
-    <Pressable style={styles.button} onPress={roulette}><Text style={{color:'#d8f3dc'}}>Losuj strefę czasową!</Text></Pressable>
+    <Pressable style={styles.button} onPress={roulette}><Text style={{color:'#77b6ea'}}>Losuj strefę czasową!</Text></Pressable>
     </ScrollView>
     </View>
   );
@@ -72,17 +72,17 @@ const styles = StyleSheet.create({
   },
 
   font: {
-    color:'#d8f3dc',
+    color:'#77b6ea',
     fontSize: 45,
     padding:5,
   },
 
   button: {
     borderWidth: 1,
-    borderColor: '#2d6a4f',
+    borderColor: '#1a659e',
     borderRadius: 5,
-    backgroundColor: '#081c15',
-    color: '#95d5b2',
+    backgroundColor: '#001d3d',
+    color: '#e0aaff',
     padding: 5.5,
     marginTop:10,
   }
