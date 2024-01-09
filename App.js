@@ -1,18 +1,19 @@
 import { StyleSheet, Text, View, Button, ScrollView, Pressable } from 'react-native';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Card from './plakietki';
 import { WorldTimeZones } from './strefyCzasowe';
 
 export default function App() {
-
   function roulette() {
+    if (WorldTimeZones.length <= 0) {
+      alert("To już wszystkie strefy czasowe!")
+      return
+      }
     const rndm = Math.floor(Math.random() * WorldTimeZones.length);
-
-      return(
-       setCards([...cards, {city: WorldTimeZones[rndm].split("/").pop().replaceAll("_", " ").replaceAll('-',' '), timeZone: WorldTimeZones[rndm]}])
-      )
+    setCards([...cards, {city: WorldTimeZones[rndm].split("/").pop().replaceAll("_", " ").replaceAll('-',' '), timeZone: WorldTimeZones[rndm]}])
+    WorldTimeZones.splice(rndm, 1)
   }
-
+  
   const plakietka = [
     {city:'Londyn', timeZone: 'Europe/London'},
     {city:'Nowy Jork', timeZone:'America/New_York'},
@@ -24,35 +25,37 @@ export default function App() {
   const [cards , setCards] = useState(plakietka)
   const [refresh, setRefresh] = useState(new Date())
 
-  function showTime(){
-    const now = new Date();
-    var currentTime = now.toLocaleTimeString();
+  function czas(){
+      new Date().toLocaleString("pl-PL", {timeZone: "Europe/Warsaw"})
     setRefresh(new Date())
   }
-  setInterval(showTime, 1000);
+  
+  useEffect(()=>{
+    const tick = setInterval(czas, 1000);
+    return()=>clearInterval(tick)
+  },[])
 
 
   return (
     <View style={styles.container}>
-    <ScrollView contentContainerStyle={{alignItems:'center', margin:'auto'}}>
+    <ScrollView contentContainerStyle={{alignItems:'center', justifyContent:'center', margin:'auto'}}>
 
-      <View style={styles.button}>
+      <View style={[styles.button,{margin:5}]}>
         <Text style={styles.font}>Polska: {refresh.toLocaleTimeString()}</Text>
       </View>
     
-    <View style={{flex:1, flexDirection:'row', flexWrap:'wrap'}}>
+    <View style={{flex:1, flexDirection:'row', flexWrap:'wrap', alignItems:'center', justifyContent:'center'}}>
       {
         cards.map( change => {
           return(
-        <View>
+        <View key={change.timeZone}>
               <Card city={change.city} refresh={refresh} timeZone={change.timeZone} />
         </View>
         )})
       }
     
-   
     </View>
-    <Pressable style={styles.button} onPress={roulette}><Text style={{color:'#d8f3dc'}}>Losuj!</Text></Pressable>
+    <Pressable style={styles.button} onPress={roulette}><Text style={{color:'#d8f3dc'}}>Losuj strefę czasową!</Text></Pressable>
     </ScrollView>
     </View>
   );
@@ -69,7 +72,7 @@ const styles = StyleSheet.create({
   },
 
   font: {
-    color:'#b7e4c7',
+    color:'#d8f3dc',
     fontSize: 45,
     padding:5,
   },
@@ -79,7 +82,7 @@ const styles = StyleSheet.create({
     borderColor: '#2d6a4f',
     borderRadius: 5,
     backgroundColor: '#081c15',
-    color: '#d8f3dc',
+    color: '#95d5b2',
     padding: 5.5,
     marginTop:10,
   }

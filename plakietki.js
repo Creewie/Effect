@@ -3,8 +3,8 @@ import { StyleSheet, Text, View, Button, ScrollView } from 'react-native';
 export default function Card({city,refresh,timeZone}){
     return(
         <View style={styles.card}>
-            <Text style={{color:'#d8f3dc'}}>{city}</Text>
-            <Text style={{color:'#d8f3dc'}}>{refresh.toLocaleTimeString("pl-PL", {timeZone: timeZone})}</Text>
+            <Text style={{color:'#b7e4c7'}}>{city}</Text>
+            <Text style={{color:'#b7e4c7'}}>{refresh.toLocaleTimeString("pl-PL", {timeZone: timeZone})}</Text>
         </View>
     )
 }
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
         padding: 5,
         alignItems: 'center',
         justifyContent: 'center',
-        width: 90,
-        margin:3
+        width: 111,
+        margin:3,
     },
 })
